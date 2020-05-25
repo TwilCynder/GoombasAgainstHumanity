@@ -1,3 +1,12 @@
+var playerName = new URL(window.location.href).searchParams.get("name");
+if (playerName == "") open("http://localhost:5000/", "_self")
+
+var game = null;
+
+function init(){
+  socket.emit('init-game', playerName);
+}
+
 function setBlackCard(card){
   let elem = document.getElementById("black-card");
   elem.textContent = card
@@ -19,13 +28,23 @@ function addWhiteCard(card){
   document.getElementById("white-cards").appendChild(elem);
 }
 
-var socket = io();
+var socket = io('/game');
 socket.on('black-card', function(data) {
   console.log("Black card : " + data)
   setBlackCard(data);
 });
 
+
 socket.on('add-white-card', function(data){
   console.log("White card added : " + data)
   addWhiteCard(data)
 });
+
+socket.on('no-game-running', function(){
+  open("http://localhost:5000/", "_self")
+})
+
+window.onload = function(){
+  console.log("Tab loaded");
+  init();
+}
