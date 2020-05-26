@@ -28,3 +28,7 @@ socket.on('new-player', function(data){
 socket.on('rename-player', function(oldName, newName){
     document.getElementById(oldName).textContent = newName;
 })
+
+socket.on('delete-player', function(name){
+    document.getElementById(name).remove();
+})

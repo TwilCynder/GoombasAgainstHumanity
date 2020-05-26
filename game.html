@@ -6,17 +6,65 @@
             body{
                 font-family:Arial, Helvetica, sans-serif;
                 text-align: center;
-                background-color: black;
-                color: blanchedalmond;
+                background-color:#555555;
+                color: white;
             }
+            span{
+                display: inline-block;
+            }
+            .card{
+                width: 150px;
+                height: 150px;
+                border-style: solid;
+                border-width: 2px;
+                border-radius: 15px;
+                font-size: 25px;
+                border-color: white;
+            }
+            .black-card{
+                background-color: black;
+            }
+            .white-card{
+                background-color: white;
+                color: black;
+                border-color: black;
+                margin-right: 10px;
+                vertical-align: text-top;
+                cursor: pointer;
+            }
+            .white-card:hover{
+                background-color: cornflowerblue;
+            }
+            #players-list{
+                position:absolute;
+                left:0px;
+                bottom: 0px;
+                width:400px;
+                height: 300px;
+                border-top:solid;
+                border-right: solid;
+                border-width: 2px;
+                border-color: black;
+                display:block;
+                overflow-y: scroll;
+            }
+            .player{
+                font-size: 30px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                border-bottom: solid;
+                border-width: 2px;
+                border-color: black;
+            }
+
         </style>
         <script src="/socket.io/socket.io.js"></script>
     </head>
     <body>
-        <p id="black-card">En attente d'une carte noire ...</p>
+        <center><div class="card black-card" id="black-card">En attente d'une carte noire ...</div></center><br>
         <div id="white-cards">
         </div>
+        <div id="players-list"></div>
     </body>
     <script src="/static/game.js"></script>
-
 </html>

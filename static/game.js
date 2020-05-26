@@ -18,12 +18,11 @@ function sendAnswer(answer){
 }
 
 function addWhiteCard(card){
-  let elem = document.createElement("p")
-  let button = elem.appendChild(document.createElement("button"))
-  button.textContent = card;
-  button.className = "white-card";
-  button.addEventListener('click', function(ev){
-    sendAnswer(button.innerText)
+  let elem = document.createElement("span");
+  elem.classList = "card white-card";
+  elem.textContent = card;
+  elem.addEventListener('click', function(ev){
+    sendAnswer(elem.innerText)
   })
   document.getElementById("white-cards").appendChild(elem);
 }
@@ -42,6 +41,19 @@ socket.on('add-white-card', function(data){
 
 socket.on('no-game-running', function(){
   open("http://localhost:5000/", "_self")
+})
+
+socket.on('new-player', function(data){
+  if (document.getElementById(data.name)) return;
+  let elem = document.createElement("div");
+  elem.className = "player";
+  elem.innerHTML = data.name + " : <b>" + data.score + "</b>";
+  elem.id = data.name;
+  document.getElementById("players-list").appendChild(elem);
+})
+
+socket.on('delete-player', function(data){
+  document.getElementById(data).remove();
 })
 
 window.onload = function(){

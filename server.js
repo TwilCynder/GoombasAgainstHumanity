@@ -36,7 +36,7 @@ class Player {
       this.score = 0;
       this.name = name;
     }
-  }  
+}  
 
 function intRand(max){
     return Math.floor(Math.random() * max);
@@ -72,6 +72,21 @@ function distributeWhiteCardsInit(playerSocket){
     for (let i = 0; i < 7; i++){
         addWhiteCard(playerSocket, intRand(white.length))
     }
+}
+
+function checkAllAswers(){
+    if (!players) return;
+    for (id in players){
+        
+    }
+}
+
+function addPlayer(socket, player){
+    socket.emit('new-player', player);
+}
+
+function newPlayer(player){
+    gameNsp.emit('new-player', player);
 }
 
 function startGame(){
@@ -168,32 +183,53 @@ lobbyNsp.on('connection', function(socket) { //callback lancé à la connection 
     })
 
     socket.on('disconnect', function(){
-        lobbyPlayers[socket.id] = undefined;
+        lobbyNsp.emit('delete-player', lobbyPlayers[socket.id])
+        delete lobbyPlayers[socket.id]
+        console.log("User " + socket.id + " disconnected")
+        cl.stopLogging();
     })
+
+    for (id in lobbyPlayers){
+        socket.emit('new-player', lobbyPlayers[id]);
+    }
 
     cl.stopLogging();
 });
 
 gameNsp.on('connection', function(socket){
-    console.log("New connection on the game namespace !")
+    console.log("New connection on the game namespace with ID " + socket.id)
 
     if (!players) socket.emit('no-game-running');
 
     socket.on('answer', function(data){
         console.log('Received answer from ' + socket.id + " : " + data);
         answers[socket.id] = data;
+
         cl.stopLogging();
     })
 
     socket.on('init-game', function(data){
-        if (!players) socket.emit('no-game-running');
+        if (!players) {
+            socket.emit('no-game-running');
+            return;
+        }
         players[socket.id] = new Player(data);
         distributeWhiteCardsInit(socket);
         sendBlackCard(socket);
+        newPlayer(players[socket.id])
+        for (playerID in players){
+            if (playerID != socket.id){
+                addPlayer(socket, players[playerID]);
+            }
+        }
     })
 
     socket.on('disconnect', function(){
-        if (players) players[socket.id] = undefined;
+        if (!players || !players[socket.id]) return;
+        gameNsp.emit('delete-player', players[socket.id].name);
+        delete players[socket.id];
+        console.log("User " + socket.id + " disconnected")
+        cl.stopLogging();
     })
 
     cl.stopLogging();
