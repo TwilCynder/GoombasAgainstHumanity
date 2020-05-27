@@ -4,24 +4,10 @@ var errcodes = {
     BLACKCARD : 3,
 }
 
-var black = [
-    "test b 1",
-    "test b 2",
-    "test b 3"
-]
+var black = require("./db_maker/black").b
+console.log(black[0])
 
-var white = [
-    "test w 1",
-    "test w 2",
-    "test w 3",
-    "test w 4",
-    "test w 5",
-    "test w 6",
-    "test w 7",
-    "test w 8",
-    "test w 9",
-    "test w 10",
-]
+var white = require("./db_maker/white").w
 
 var black_index = 0;
 var current_black;
