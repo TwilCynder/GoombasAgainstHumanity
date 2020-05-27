@@ -20,7 +20,7 @@ socket.on('start-game', function(data){
     console.log("Starting the game under the name " + data)
     open("http://localhost:5000/game?name=" + data, "_self");
 })
-
+ 
 socket.on('new-player', function(data){
     addPlayer(data);
 })
@@ -31,4 +31,13 @@ socket.on('rename-player', function(oldName, newName){
 
 socket.on('delete-player', function(name){
     document.getElementById(name).remove();
+})
+
+socket.on('lobby-king', function(){
+    let button = document.createElement("button");
+    button.innerText = "Start Game";
+    button.addEventListener('click', function(ev){
+        socket.emit('start-game');
+    });
+    document.getElementById('head').appendChild(button)
 })
