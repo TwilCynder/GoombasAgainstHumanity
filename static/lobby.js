@@ -18,7 +18,7 @@ function buttonCallback(){
 
 socket.on('start-game', function(data){
     console.log("Starting the game under the name " + data)
-    open("http://localhost:5000/game?name=" + data, "_self");
+    open("http://15.236.156.224:5000/game?name=" + data, "_self");
 })
  
 socket.on('new-player', function(data){
