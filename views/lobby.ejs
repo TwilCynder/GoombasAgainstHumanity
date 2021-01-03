@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Goombas against Humanity</title>
+        <style>
+            body{
+                font-family:Arial, Helvetica, sans-serif;
+                text-align: center;
+                background-color: black;
+                color: blanchedalmond;
+            }
+        </style>
+        <script>
+            const base_url = "<%= base_url %>";
+        </script>
+        <script src="/socket.io/socket.io.js"></script>
+    </head>
+    <body>
+        <h1 style = "font:Arial 30px;">Goombas Against Humanity</h1>
+        <div id="head">
+            <input type="text" id="name-input">
+            <button onclick="buttonCallback()">Join!</button>
+        </div>
+        <div id="players">
+        </div>
+    </body>
+    <script src="/static/lobby.js"></script>
+</html>

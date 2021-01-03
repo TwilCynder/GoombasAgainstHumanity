@@ -1,11 +1,24 @@
+var DEBUG = 1
+
 var errcodes = {
     PLAYER : 1,
     WHITECARD : 2,
     BLACKCARD : 3,
 }
 
+if(process.argv[2] == "-d"){
+    DEBUG = 1
+}
+
+
+var base_url
+if (DEBUG){
+    base_url = "http://localhost:5000";
+} else {
+    base_url = "";
+}
+
 var black = require("./db_maker/black").b
-console.log(black[0])
 
 var white = require("./db_maker/white").w
 
@@ -193,16 +206,18 @@ app.use(function(req, res, next){
     next();
 })
 
+app.set('view engine', 'ejs');
+
 // Routing
 app.get('/', function(request, response) { //on serve la page d'accueil
-    response.sendFile(path.join(__dirname, 'lobby.html'));
+    response.render('lobby', {base_url : base_url});
 });
 
 app.get('/game', function(request, response){
     if (!players){
         response.redirect('/')
     } else {
-        response.sendFile(path.join(__dirname, 'game.html'));
+        response.render('game', {base_url : base_url});
     }
 })
 
