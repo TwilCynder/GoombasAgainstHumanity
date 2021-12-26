@@ -9,7 +9,7 @@
     "author": "TwilCynder",
     "dependencies": {
         "express": "^4.17.1",
-        "ejs": "^1.0.0",
+        "ejs": "^2.5.5",
         "socket.io": "2.3.0",
         "@twilcynder/commandline": "1.0.3"
     }
