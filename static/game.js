@@ -1,5 +1,5 @@
 var playerName = new URL(window.location.href).searchParams.get("name");
-if (playerName == "") open("http://localhost:5000/", "_self")
+if (playerName == "") open(base_url, "_self")
 
 var game = null;
 var reviewing = false;
