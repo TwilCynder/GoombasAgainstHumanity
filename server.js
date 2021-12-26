@@ -183,7 +183,7 @@ var app = express(); //le serveur
 var server = http.Server(app); //on crée un object http.Server avec le serveur déjà existant
 var io = socketIO(server); //serveur socketIO, qu'on bind au server express/HTTP
 var gameNsp = io.of('/game');
-var lobbyNsp = io.of('/lobby')
+var lobbyNsp = io.of('/lobby');
 
 app.use('/static', express.static(__dirname + '/static')); //pas compris
 
