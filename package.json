@@ -8,7 +8,7 @@
     },
     "author": "TwilCynder",
     "dependencies": {
-        "express": "^4.17.1",
+        "express": "^4.18.2",
         "ejs": "^1.0.0",
         "socket.io": "2.5.0",
         "@twilcynder/commandline": "1.2.1"
